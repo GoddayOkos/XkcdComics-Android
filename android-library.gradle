@@ -31,12 +31,6 @@ android {
         viewBinding true
     }
 
-    sourceSets {
-        androidTest {
-            assets.srcDirs = ["src/debug/assets"]
-        }
-    }
-
     packagingOptions {
         exclude 'META-INF/AL2.0'
         exclude 'META-INF/LGPL2.1'
