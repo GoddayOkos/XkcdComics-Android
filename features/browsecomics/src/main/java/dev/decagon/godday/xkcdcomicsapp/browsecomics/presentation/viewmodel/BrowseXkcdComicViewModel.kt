@@ -49,9 +49,7 @@ class BrowseXkcdComicViewModel @Inject constructor(
         }
 
         getComicJob = viewModelScope.launch(exceptionHandler) {
-            val xkcdComic = withContext(dispatchersProvider.io()) {
-                getXkcdComic(id)
-            }
+            val xkcdComic = withContext(dispatchersProvider.io()) { getXkcdComic(id) }
 
             onXkcdComicAvailable(xkcdComic)
         }

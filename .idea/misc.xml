@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_baseline_favorite_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/ic_outline_gps_fixed_24.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1331521739130435" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="features/browsecomics/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1" />
         <entry key="features/browsecomics/src/main/res/layout/fragment_comic_main.xml" value="0.1331521739130435" />
         <entry key="features/browsecomics/src/main/res/layout/fragment_single_comic.xml" value="0.1" />
