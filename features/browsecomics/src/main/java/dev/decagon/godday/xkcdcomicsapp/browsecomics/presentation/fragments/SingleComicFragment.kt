@@ -1,15 +1,15 @@
 package dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import dev.decagon.godday.xkcdcomicsapp.browsecomics.R
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.databinding.FragmentSingleComicBinding
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.BrowseComicEvent
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.BrowseComicViewState
@@ -30,10 +30,14 @@ class SingleComicFragment : Fragment() {
     private var _binding: FragmentSingleComicBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var currentComic: XkcdComics
+
     private val viewModel: BrowseXkcdComicViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
 
         arguments?.let {
             param1 = it.getInt(ARG_PARAM1)
@@ -56,9 +60,23 @@ class SingleComicFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) { updateScreenState(it) }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.comics_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.search ->  navigateToSearchFragment()
+            R.id.share -> shareXkcdComic()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun updateScreenState(state: BrowseComicViewState) {
         binding.pbLoading.isVisible = state.loading
         state.xkcdComic?.let {
+            currentComic = it
             displayComic(it)
         }
 
@@ -92,6 +110,27 @@ class SingleComicFragment : Fragment() {
         binding.btnReload.setOnClickListener {
             viewModel.onEvent(BrowseComicEvent.RequestNextXkcdComic(param1!!.toLong()))
         }
+    }
+
+    private fun shareXkcdComic() {
+        if (!this::currentComic.isInitialized) {
+            Snackbar.make(binding.root, getString(R.string.no_comics_msg), Snackbar.LENGTH_LONG).show()
+            return
+        }
+
+        val shareComicIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(
+                Intent.EXTRA_TEXT, getString(R.string.share_comic_msg, currentComic.imageUrl))
+            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_comic_subject))
+            type = "text/plain"
+        }
+        startActivity(Intent.createChooser(shareComicIntent, getString(R.string.share_comic_title)))
+    }
+
+    private fun navigateToSearchFragment() {
+        // Todo: Replace with code to navigate to search screen
+        Snackbar.make(binding.root, "Search icon clicked", Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

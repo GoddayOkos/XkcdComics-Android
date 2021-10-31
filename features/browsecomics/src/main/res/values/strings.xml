@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="reload">Reload</string>
+    <string name="share">Share</string>
+    <string name="search">Search</string>
+    <string name="no_comics_msg">No comic to share</string>
+    <string name="share_comic_msg">Hey! Checkout this funny image I found on xkcd comics, %1$s</string>
+    <string name="share_comic_subject">Xkcd Comics</string>
+    <string name="share_comic_title">Share xkcd comic via</string>
 </resources>

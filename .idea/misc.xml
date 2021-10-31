@@ -7,6 +7,7 @@
         <entry key="features/browsecomics/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1" />
         <entry key="features/browsecomics/src/main/res/layout/fragment_comic_main.xml" value="0.1331521739130435" />
         <entry key="features/browsecomics/src/main/res/layout/fragment_single_comic.xml" value="0.1" />
+        <entry key="features/browsecomics/src/main/res/menu/comics_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
