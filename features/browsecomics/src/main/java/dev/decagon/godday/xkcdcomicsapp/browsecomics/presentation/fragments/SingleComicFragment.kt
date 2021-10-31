@@ -7,16 +7,19 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.R
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.databinding.FragmentSingleComicBinding
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.BrowseComicEvent
+import dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.BrowseComicViewEffect
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.BrowseComicViewState
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.viewmodel.BrowseXkcdComicViewModel
 import dev.decagon.godday.xkcdcomicsapp.common.domain.model.XkcdComics
 import dev.decagon.godday.xkcdcomicsapp.common.presentation.Event
 import dev.decagon.godday.xkcdcomicsapp.common.utils.setImage
+import kotlinx.coroutines.flow.collect
 
 /**
  * A simple [Fragment] subclass.
@@ -57,6 +60,7 @@ class SingleComicFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupUI()
+        observeViewEffects()
         viewModel.state.observe(viewLifecycleOwner) { updateScreenState(it) }
     }
 
@@ -71,6 +75,20 @@ class SingleComicFragment : Fragment() {
             R.id.share -> shareXkcdComic()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun observeViewEffects() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.viewEffects.collect { reactTo(it) }
+        }
+    }
+
+    private fun reactTo(effect: BrowseComicViewEffect) {
+        when (effect) {
+            is BrowseComicViewEffect.OnFavoriteComicAdded -> {
+                Snackbar.make(binding.root, getString(R.string.comic_added_msg), Snackbar.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun updateScreenState(state: BrowseComicViewState) {
@@ -90,6 +108,7 @@ class SingleComicFragment : Fragment() {
             tvCreateDate.text = xkcdComic.getDatePosted()
             ivXkcdPic.setImage(xkcdComic.imageUrl)
             tvDescription.text = xkcdComic.description
+            binding.fab.visibility = View.VISIBLE
             btnReload.visibility = View.GONE
         }
     }
@@ -99,6 +118,7 @@ class SingleComicFragment : Fragment() {
             Snackbar.make(binding.root, str, Snackbar.LENGTH_LONG).show()
 
             binding.btnReload.visibility = View.VISIBLE
+            binding.fab.visibility = View.GONE
         }
     }
 
@@ -107,8 +127,14 @@ class SingleComicFragment : Fragment() {
     }
 
     private fun setupUI() {
-        binding.btnReload.setOnClickListener {
-            viewModel.onEvent(BrowseComicEvent.RequestNextXkcdComic(param1!!.toLong()))
+        with(binding) {
+            btnReload.setOnClickListener {
+                viewModel.onEvent(BrowseComicEvent.RequestNextXkcdComic(param1!!.toLong()))
+            }
+
+            fab.setOnClickListener {
+                viewModel.onEvent(BrowseComicEvent.AddComicToFavorite(currentComic))
+            }
         }
     }
 

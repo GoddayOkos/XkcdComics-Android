@@ -7,4 +7,6 @@
     <string name="share_comic_msg">Hey! Checkout this funny image I found on xkcd comics, %1$s</string>
     <string name="share_comic_subject">Xkcd Comics</string>
     <string name="share_comic_title">Share xkcd comic via</string>
+    <string name="fab_description">Add comic to favorite button</string>
+    <string name="comic_added_msg">Comic added to favorites!</string>
 </resources>

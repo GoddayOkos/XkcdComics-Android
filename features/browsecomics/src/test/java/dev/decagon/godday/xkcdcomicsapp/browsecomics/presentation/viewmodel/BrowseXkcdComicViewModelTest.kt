@@ -2,11 +2,13 @@ package dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
+import dev.decagon.godday.xkcdcomicsapp.browsecomics.domain.usecases.AddComicToFavorite
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.domain.usecases.GetXkcdComic
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.BrowseComicEvent
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.BrowseComicViewState
 import dev.decagon.godday.xkcdcomicsapp.common.TestCoroutineRule
 import dev.decagon.godday.xkcdcomicsapp.common.data.FakeRepository
+import dev.decagon.godday.xkcdcomicsapp.common.data.cache.model.FavoriteComic
 import dev.decagon.godday.xkcdcomicsapp.common.utils.DispatchersProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,6 +28,7 @@ class BrowseXkcdComicViewModelTest {
     private lateinit var viewModel: BrowseXkcdComicViewModel
     private lateinit var repository: FakeRepository
     private lateinit var getXkcdComic: GetXkcdComic
+    private lateinit var addComicToFavorite: AddComicToFavorite
 
     @Before
     fun setup() {
@@ -35,9 +38,11 @@ class BrowseXkcdComicViewModelTest {
 
         repository = FakeRepository()
         getXkcdComic = GetXkcdComic(repository)
+        addComicToFavorite = AddComicToFavorite(repository)
 
         viewModel = BrowseXkcdComicViewModel(
             getXkcdComic,
+            addComicToFavorite,
             dispatchersProvider
         )
     }
@@ -89,4 +94,19 @@ class BrowseXkcdComicViewModelTest {
 
             assertThat(viewState).isEqualTo(expectedViewState)
         }
+
+    @Test
+    fun `BrowseXkcdComicViewModel saveComicToFavorite addsToDb`() {
+        // Given
+        val favoriteComic = repository.xkcdComics1
+        val expectedSize = 1
+
+        // When
+        viewModel.onEvent(BrowseComicEvent.AddComicToFavorite(favoriteComic))
+
+        // Then
+        assertThat(repository.getFavoriteComicListSize()).isEqualTo(expectedSize)
+        assertThat(repository.favoriteComicList
+            .contains(FavoriteComic.fromDomain(favoriteComic))).isTrue()
+    }
 }
