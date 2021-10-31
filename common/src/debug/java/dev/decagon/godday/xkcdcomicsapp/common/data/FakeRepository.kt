@@ -1,8 +1,10 @@
 package dev.decagon.godday.xkcdcomicsapp.common.data
 
+import dev.decagon.godday.xkcdcomicsapp.common.data.cache.model.FavoriteComic
 import dev.decagon.godday.xkcdcomicsapp.common.domain.model.XkcdComics
 import dev.decagon.godday.xkcdcomicsapp.common.domain.repository.ComicRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 
@@ -56,6 +58,10 @@ class FakeRepository @Inject constructor() : ComicRepository {
     val remoteComicList: List<XkcdComics> =
         mutableListOf(xkcdComics1, xkcdComics2, xkcdComics3)
 
+    val favoriteComicList: MutableList<FavoriteComic> = mutableListOf()
+
+    fun getFavoriteComicListSize(): Int = favoriteComicList.size
+
     override suspend fun getXkcdComicById(id: Long): XkcdComics? {
         return remoteComicList.find { it.id == id }
     }
@@ -65,10 +71,8 @@ class FakeRepository @Inject constructor() : ComicRepository {
     }
 
     override suspend fun saveFavoriteComic(comics: XkcdComics) {
-        TODO("Not yet implemented")
+        favoriteComicList.add(FavoriteComic.fromDomain(comics))
     }
 
-    override fun getFavouriteComics(): Flow<List<XkcdComics>> {
-        TODO("Not yet implemented")
-    }
+    override fun getFavouriteComics(): Flow<List<XkcdComics>> = flow { emit(remoteComicList) }
 }

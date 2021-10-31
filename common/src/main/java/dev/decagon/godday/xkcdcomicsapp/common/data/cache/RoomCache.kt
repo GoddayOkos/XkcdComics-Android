@@ -8,6 +8,7 @@ import javax.inject.Inject
 class RoomCache @Inject constructor(
     private val favoriteComicsDao: FavoriteComicsDao
 ) : Cache {
+
     override suspend fun storeFavoriteComic(favoriteComic: FavoriteComic) {
         favoriteComicsDao.insertFavoriteComic(favoriteComic)
     }
