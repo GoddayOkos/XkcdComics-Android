@@ -9,3 +9,4 @@ rootProject.name = "Xkcd Comics App"
 include ':app'
 include ':common'
 include ':features:browsecomics'
+include ':features:favorites'

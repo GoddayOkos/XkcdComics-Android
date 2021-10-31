@@ -4,15 +4,20 @@ import dev.decagon.godday.xkcdcomicsapp.common.data.api.SearchComicApi
 import dev.decagon.godday.xkcdcomicsapp.common.data.api.XkcdComicsApi
 import dev.decagon.godday.xkcdcomicsapp.common.data.api.model.mapper.ApiComicMapper
 import dev.decagon.godday.xkcdcomicsapp.common.data.api.safeApiCall
+import dev.decagon.godday.xkcdcomicsapp.common.data.cache.Cache
+import dev.decagon.godday.xkcdcomicsapp.common.data.cache.model.FavoriteComic
 import dev.decagon.godday.xkcdcomicsapp.common.domain.model.XkcdComics
 import dev.decagon.godday.xkcdcomicsapp.common.domain.repository.ComicRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class XkcdComicRepository @Inject constructor(
     private val comicApi: XkcdComicsApi,
     private val searchApi: SearchComicApi,
-    private val apiComicMapper: ApiComicMapper
+    private val apiComicMapper: ApiComicMapper,
+    private val cache: Cache
 ) : ComicRepository {
 
     override suspend fun getXkcdComicById(id: Long): XkcdComics? =
@@ -28,11 +33,15 @@ class XkcdComicRepository @Inject constructor(
         }
 
     override suspend fun saveFavoriteComic(comics: XkcdComics) {
-        TODO("Not yet implemented")
+        cache.storeFavoriteComic(FavoriteComic.fromDomain(comics))
     }
 
     override fun getFavouriteComics(): Flow<List<XkcdComics>> {
-        TODO("Not yet implemented")
+        return cache.getFavoritesComics()
+            .distinctUntilChanged()
+            .map { favoriteComicsList ->
+                favoriteComicsList.map { it.toDomain() }
+            }
     }
 
 }
