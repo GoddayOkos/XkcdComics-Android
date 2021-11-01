@@ -128,7 +128,7 @@ class SingleComicFragment : Fragment() {
     }
 
     private fun handleNoMoreComics(noMoreComics: Boolean) {
-        // TODO
+        // TODO: Disable swiping when the are no more comics to display
     }
 
     private fun setupUI() {
@@ -159,6 +159,7 @@ class SingleComicFragment : Fragment() {
         startActivity(Intent.createChooser(shareComicIntent, getString(R.string.share_comic_title)))
     }
 
+    // Navigation between modules using deeplink
     private fun navigateToSearchFragment() {
         val deepLink = NavDeepLinkRequest.Builder
             .fromUri("xkcdcomicsapp://search".toUri())
@@ -175,6 +176,8 @@ class SingleComicFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        // Clear the viewModel to enable smooth transition between pages
+        // of the viewPagers
         viewModel.clear()
         _binding = null
     }

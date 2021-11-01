@@ -9,6 +9,9 @@ import okhttp3.mockwebserver.RecordedRequest
 import okio.IOException
 import java.io.InputStream
 
+/**
+ * A fake server class with MockWebServer used for testing network logic
+ */
 class FakeServer {
     private val mockWebServer = MockWebServer()
 
@@ -50,6 +53,7 @@ class FakeServer {
         mockWebServer.shutdown()
     }
 
+    // Reads json data from assets and return it as string
     private fun getJson(path: String): String {
         return try {
             val context = InstrumentationRegistry.getInstrumentation().context

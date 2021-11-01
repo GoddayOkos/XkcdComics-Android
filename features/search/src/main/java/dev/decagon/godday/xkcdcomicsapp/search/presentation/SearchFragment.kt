@@ -129,6 +129,7 @@ class SearchFragment : Fragment() {
         }
     }
 
+    // Navigate to the comics screen with the comicId using deeplink
     private fun createAdapter(): XkcdComicAdapter = XkcdComicAdapter().apply {
         setOnComicClickedListener {
             val deepLink = NavDeepLinkRequest.Builder

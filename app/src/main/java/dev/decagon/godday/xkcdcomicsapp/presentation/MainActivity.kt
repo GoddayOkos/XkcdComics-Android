@@ -54,6 +54,8 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+    // Disable bottom navigation for FavouriteDetailFragment and SearchFragment since they
+    // ain't top level destinations.
     private fun hideBottomNav() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
