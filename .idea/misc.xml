@@ -14,6 +14,11 @@
         <entry key="features/browsecomics/src/main/res/menu/comics_menu.xml" value="0.1" />
         <entry key="features/favorites/src/main/res/layout/fragment_favorite_detail.xml" value="0.125" />
         <entry key="features/favorites/src/main/res/layout/fragment_favorites.xml" value="0.1322463768115942" />
+        <entry key="features/search/src/main/res/drawable/card_view_border.xml" value="0.1" />
+        <entry key="features/search/src/main/res/drawable/ic_baseline_search_off_24.xml" value="0.1" />
+        <entry key="features/search/src/main/res/drawable/search_icon24.xml" value="0.1" />
+        <entry key="features/search/src/main/res/layout/fragment_search.xml" value="0.1" />
+        <entry key="features/search/src/main/res/layout/search_bar.xml" value="0.1" />
       </map>
     </option>
   </component>

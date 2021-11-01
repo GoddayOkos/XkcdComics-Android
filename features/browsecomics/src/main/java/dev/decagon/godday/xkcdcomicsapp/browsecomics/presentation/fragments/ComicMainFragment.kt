@@ -31,7 +31,15 @@ class ComicMainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // extract the id the was passed through deeplink from the searchFragment
+        val id = requireArguments().getInt("id")
+
         binding.viewPager.adapter = adapter
+
+        // Scroll to the position of the comic whose comicId matches with the id
+        if (id > 0) {
+            binding.viewPager.setCurrentItem(id - 1, false)
+        }
     }
 
     override fun onDestroyView() {

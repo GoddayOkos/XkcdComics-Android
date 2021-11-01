@@ -6,5 +6,5 @@
 
     <include app:graph="@navigation/nav_browse_comics"/>
     <include app:graph="@navigation/nav_favorites"/>
-
+    <include app:graph="@navigation/nav_search"/>
 </navigation>

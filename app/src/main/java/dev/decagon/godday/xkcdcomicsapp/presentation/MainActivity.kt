@@ -1,6 +1,7 @@
 package dev.decagon.godday.xkcdcomicsapp.presentation
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -24,7 +25,8 @@ class MainActivity : AppCompatActivity() {
 
     private val appBarConfiguration by lazy {
         AppBarConfiguration(topLevelDestinationIds = setOf(
-            R.id.comicMainFragment
+            R.id.comicMainFragment,
+            R.id.favouritesFragment
         ))
     }
 
@@ -45,9 +47,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNav() {
         binding.bottomNav.setupWithNavController(navController)
+        hideBottomNav()
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun hideBottomNav() {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.favoriteDetailFragment, R.id.searchFragment ->
+                    binding.bottomNav.visibility = View.GONE
+
+                else -> binding.bottomNav.visibility = View.VISIBLE
+            }
+        }
     }
 }

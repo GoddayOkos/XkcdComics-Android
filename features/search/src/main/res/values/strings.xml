@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="initial_text" >Use the above search field to find xkcd comics…</string>
+    <string name="search_description">Search for xkcd comics</string>
+    <string name="failed_search_icon_description">No results found</string>
+    <string name="empty_search_result_msg">No results found</string>
+    <string name="search_view_hint">Search by number or text</string>
+</resources>

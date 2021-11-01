@@ -1,0 +1,9 @@
+apply from: "$rootProject.projectDir/android-library.gradle"
+
+dependencies {
+    implementation project(":common")
+
+    // Navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+}

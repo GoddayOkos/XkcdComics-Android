@@ -9,6 +9,9 @@
         android:id="@+id/comicMainFragment"
         android:name="dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.fragments.ComicMainFragment"
         android:label="Xkcd Comics"
-        tools:layout="@layout/fragment_comic_main" >
+        tools:layout="@layout/fragment_comic_main">
+        <argument android:name="id"
+            app:argType="integer"/>
+        <deepLink app:uri="xkcdcomicsapp://comicmain/{id}" />
     </fragment>
 </navigation>

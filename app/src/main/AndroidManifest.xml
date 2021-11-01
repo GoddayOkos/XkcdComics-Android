@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="dev.decagon.godday.xkcdcomicsapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,15 +13,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.XkcdComicsApp">
+        android:theme="@style/Theme.XkcdComicsApp"
+        tools:targetApi="m">
         <activity
             android:name=".presentation.MainActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <nav-graph android:value="@navigation/nav_graph" />
         </activity>
     </application>
 

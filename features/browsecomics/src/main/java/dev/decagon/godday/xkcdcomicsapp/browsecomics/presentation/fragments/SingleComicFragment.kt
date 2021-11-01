@@ -3,11 +3,15 @@ package dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.R
@@ -155,8 +159,17 @@ class SingleComicFragment : Fragment() {
     }
 
     private fun navigateToSearchFragment() {
-        // Todo: Replace with code to navigate to search screen
-        Snackbar.make(binding.root, "Search icon clicked", Snackbar.LENGTH_SHORT).show()
+        val deepLink = NavDeepLinkRequest.Builder
+            .fromUri("xkcdcomicsapp://search".toUri())
+            .build()
+
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.nav_browse_comics, true)
+            .setEnterAnim(R.anim.nav_default_enter_anim)
+            .setExitAnim(R.anim.nav_default_exit_anim)
+            .build()
+
+        findNavController().navigate(deepLink, navOptions)
     }
 
     override fun onDestroyView() {
