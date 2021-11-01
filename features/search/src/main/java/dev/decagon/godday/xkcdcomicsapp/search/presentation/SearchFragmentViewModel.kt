@@ -71,9 +71,9 @@ class SearchFragmentViewModel @Inject constructor(
         }
     }
 
-    // Check if query matches string or numbers
+    // Check if query matches invalid characters like #,* etc
     private fun validateQuery(query: String): Boolean {
-        return query.matches("\\W".toRegex())
+        return query.matches("\\W+".toRegex())
     }
 
     override fun onCleared() {
