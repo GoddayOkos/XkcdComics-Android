@@ -43,7 +43,6 @@ class SingleComicFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setHasOptionsMenu(true)
 
         arguments?.let {
@@ -71,6 +70,8 @@ class SingleComicFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.comics_menu, menu)
+        menu.findItem(R.id.share).isVisible = true
+        menu.findItem(R.id.search).isVisible = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

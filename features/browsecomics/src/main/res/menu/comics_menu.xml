@@ -2,11 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/share"
+        android:visible="false"
         android:title="@string/share"
         android:icon="@drawable/ic_baseline_share_24"
         app:showAsAction="ifRoom" />
     <item android:id="@+id/search"
         android:title="@string/search"
+        android:visible="false"
         android:icon="@drawable/ic_baseline_search_24"
         app:showAsAction="ifRoom" />
 </menu>
