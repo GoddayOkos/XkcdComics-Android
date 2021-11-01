@@ -9,7 +9,18 @@
         android:id="@+id/favouritesFragment"
         android:name="dev.decagon.godday.xkcdcomicsapp.favorites.presentation.FavoritesFragment"
         android:label="Favorites"
-        tools:layout="@layout/fragment_favorites" >
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/action_favouritesFragment_to_favoriteDetailFragment"
+            app:destination="@id/favoriteDetailFragment" />
     </fragment>
-
+    <fragment
+        android:id="@+id/favoriteDetailFragment"
+        android:name="dev.decagon.godday.xkcdcomicsapp.favorites.presentation.FavoriteDetailFragment"
+        android:label="Favorite Comic"
+        tools:layout="@layout/fragment_favorite_detail">
+        <argument
+            android:name="favoriteComic"
+            app:argType="dev.decagon.godday.xkcdcomicsapp.common.data.cache.model.FavoriteComic" />
+    </fragment>
 </navigation>
