@@ -19,6 +19,7 @@ import dev.decagon.godday.xkcdcomicsapp.browsecomics.databinding.FragmentSingleC
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.BrowseComicEvent
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.BrowseComicViewEffect
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.BrowseComicViewState
+import dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.ComicContract
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.viewmodel.BrowseXkcdComicViewModel
 import dev.decagon.godday.xkcdcomicsapp.common.domain.model.XkcdComics
 import dev.decagon.godday.xkcdcomicsapp.common.presentation.Event
@@ -103,8 +104,8 @@ class SingleComicFragment : Fragment() {
             displayComic(it)
         }
 
-        handleNoMoreComics(state.noMoreXkcdComics)
         handleFailure(state.failure)
+        handleNoMoreComics(state.noMoreXkcdComics)
     }
 
     private fun displayComic(xkcdComic: XkcdComics) {
@@ -128,7 +129,15 @@ class SingleComicFragment : Fragment() {
     }
 
     private fun handleNoMoreComics(noMoreComics: Boolean) {
-        // TODO: Disable swiping when the are no more comics to display
+        if (noMoreComics) {
+            comicContract?.onEndOfComicsReached(param1!!)
+            with(binding) {
+                btnReload.visibility = View.GONE
+                tvTitle.text = getString(R.string.no_more_comics_title)
+                ivXkcdPic.setImage("")
+                tvDescription.text = getString(R.string.no_more_comics_msg)
+            }
+        }
     }
 
     private fun setupUI() {
@@ -184,6 +193,7 @@ class SingleComicFragment : Fragment() {
 
     companion object {
         private const val ARG_PARAM1 = "param1"
+        private var comicContract: ComicContract? = null
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -192,9 +202,11 @@ class SingleComicFragment : Fragment() {
          * @return A new instance of fragment SingleComicFragment.
          */
         @JvmStatic
-        fun newInstance(param1: Int) =
-            SingleComicFragment().apply {
+        fun newInstance(param1: Int, contract: ComicContract): SingleComicFragment {
+            comicContract = contract
+            return SingleComicFragment().apply {
                 arguments = bundleOf(ARG_PARAM1 to param1)
             }
+        }
     }
 }

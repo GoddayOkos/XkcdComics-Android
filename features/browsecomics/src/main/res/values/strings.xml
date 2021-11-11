@@ -9,4 +9,6 @@
     <string name="share_comic_title">Share xkcd comic via</string>
     <string name="fab_description">Add comic to favorite button</string>
     <string name="comic_added_msg">Comic added to favorites!</string>
+    <string name="no_more_comics_title">No More Comics to Display</string>
+    <string name="no_more_comics_msg">We wre trying our best to add as many comics as possible. We will notify you when there are more comics. Thanks</string>
 </resources>

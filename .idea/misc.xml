@@ -19,8 +19,8 @@
         <entry key="features/search/src/main/res/drawable/card_view_border.xml" value="0.1" />
         <entry key="features/search/src/main/res/drawable/ic_baseline_search_off_24.xml" value="0.1" />
         <entry key="features/search/src/main/res/drawable/search_icon24.xml" value="0.1" />
-        <entry key="features/search/src/main/res/layout/fragment_search.xml" value="0.1" />
-        <entry key="features/search/src/main/res/layout/search_bar.xml" value="0.1" />
+        <entry key="features/search/src/main/res/layout/fragment_search.xml" value="0.25" />
+        <entry key="features/search/src/main/res/layout/search_bar.xml" value="0.335" />
       </map>
     </option>
   </component>

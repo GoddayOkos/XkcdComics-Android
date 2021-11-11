@@ -5,9 +5,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.ComicContract
 import dev.decagon.godday.xkcdcomicsapp.browsecomics.presentation.fragments.SingleComicFragment
 
-class ComicPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
+class ComicPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle, private val contract: ComicContract) :
     FragmentStateAdapter(fm, lifecycle) {
 
     /*
@@ -26,5 +27,5 @@ class ComicPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
     override fun getItemCount(): Int = size
 
     override fun createFragment(position: Int): Fragment =
-        SingleComicFragment.newInstance(position + 1)
+        SingleComicFragment.newInstance(position + 1, contract)
 }
