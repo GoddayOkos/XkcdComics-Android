@@ -27,3 +27,6 @@ At the presentation layer of the architecture, I used MVVM with Unidirectional D
 
 ## Testing
 Wrote units and integration tests for viewModels and repository. I didn't unit tests the usecases as that wouldn't benefit us since the usecases integration with the viewModels and repository had already been tested.
+
+## Screenshots
+<img src="https://user-images.githubusercontent.com/60139290/166424030-9ee22660-990c-4da6-933b-f274cf075e63.png" width=300/> <img src="https://user-images.githubusercontent.com/60139290/166424042-666fd763-9d11-4bd1-b8fc-51ab183642a9.png" width=300/> <img src="https://user-images.githubusercontent.com/60139290/166424053-46247590-4666-43e2-9ba9-b2ccf89ec901.png" width=300/> <img src="https://user-images.githubusercontent.com/60139290/166424062-58f21422-470b-43ed-9d00-9147369c11eb.png" width=300/> <img src="https://user-images.githubusercontent.com/60139290/166424075-50fbf1ab-1e3e-4120-a8ba-1f1f0e738083.png" width=300/> <img src="https://user-images.githubusercontent.com/60139290/166424081-48be3633-2219-4182-96f6-0cd3dd7f1dd1.png" width=300/> <img src="https://user-images.githubusercontent.com/60139290/166424094-dd4417b8-931e-4a2c-8187-54773b4d7fbe.png" height=300/>
